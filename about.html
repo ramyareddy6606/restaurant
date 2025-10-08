@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delicious Bites | About</title>
+  <style>
+    /* Reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      scroll-behavior: smooth;
+    }
+    body {
+      background: #f9f9f9;
+      color: #444;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #ff6347;
+    }
+
+    /* Navbar */
+    header {
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      animation: slideDown 0.8s ease forwards;
+    }
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+    }
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ff6347;
+      cursor: default;
+      user-select: none;
+      letter-spacing: 2px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .nav-links li {
+      list-style: none;
+    }
+    .nav-links a {
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+    .nav-links a.active,
+    .nav-links a:hover {
+      color: #fff;
+      background: #ff6347;
+      box-shadow:
+        0 0 8px #ff6347,
+        0 0 20px #ff6347;
+      transition: all 0.3s ease;
+    }
+
+    /* About Hero */
+    .about-hero {
+      background: linear-gradient(
+          135deg,
+          rgba(255, 99, 71, 0.85),
+          rgba(255, 140, 105, 0.85)
+        ),
+        url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?auto=format&fit=crop&w=1350&q=80')
+          center/cover no-repeat;
+      color: white;
+      padding: 120px 30px;
+      text-align: center;
+      animation: heroFadeIn 2s ease forwards;
+      position: relative;
+      overflow: hidden;
+    }
+    @keyframes heroFadeIn {
+      from {opacity: 0; transform: translateY(20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+    .about-hero h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      letter-spacing: 1.5px;
+      animation: slideUp 1.2s ease forwards;
+    }
+    .about-hero p {
+      font-size: 1.25rem;
+      max-width: 700px;
+      margin: 0 auto;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.6);
+      animation: slideUp 1.5s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+    @keyframes slideUp {
+      to {opacity: 1; transform: translateY(0);}
+      from {opacity: 0; transform: translateY(15px);}
+    }
+
+    /* About Content */
+    .about-content {
+      max-width: 1000px;
+      margin: 60px auto 100px;
+      padding: 0 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      animation: fadeInContent 1.5s ease forwards;
+      opacity: 0;
+    }
+    @keyframes fadeInContent {
+      to {opacity: 1;}
+    }
+
+    /* Sections */
+    .about-content h2 {
+      color: #ff6347;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      border-left: 5px solid #ff6347;
+      padding-left: 12px;
+      text-transform: uppercase;
+      user-select: none;
+    }
+    .about-content p {
+      font-size: 1.1rem;
+      color: #555;
+      line-height: 1.8;
+      max-width: 850px;
+      text-align: justify;
+    }
+
+    /* Team Members */
+    .team-members {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .member-card {
+      background: #fff;
+      box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.1),
+        inset 0 0 8px rgba(255, 99, 71, 0.15);
+      border-radius: 16px;
+      padding: 30px 25px 40px;
+      width: 260px;
+      text-align: center;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .member-card:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow:
+        0 20px 40px rgba(255, 99, 71, 0.35),
+        inset 0 0 15px rgba(255, 99, 71, 0.3);
+      z-index: 5;
+    }
+    .member-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(255, 99, 71, 0.3), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      transform: rotate(25deg);
+      z-index: 0;
+    }
+    .member-card:hover::before {
+      opacity: 1;
+    }
+    .member-card img {
+      border-radius: 50%;
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(255, 99, 71, 0.4);
+      transition: transform 0.5s ease;
+    }
+    .member-card:hover img {
+      transform: scale(1.1) rotate(5deg);
+    }
+    .member-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+      color: #ff6347;
+      text-transform: capitalize;
+      letter-spacing: 0.8px;
+    }
+    .member-card p {
+      font-size: 1rem;
+      color: #666;
+      font-weight: 500;
+      user-select: none;
+    }
+
+    /* Video Section */
+    .video-section {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .video-section h2 {
+      margin-bottom: 25px;
+    }
+    .video-section iframe {
+      width: 100%;
+      max-width: 900px;
+      height: 450px;
+      border-radius: 20px;
+      box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.18);
+      transition: box-shadow 0.4s ease;
+    }
+    .video-section iframe:hover {
+      box-shadow:
+        0 18px 50px rgba(255, 99, 71, 0.5);
+    }
+
+    /* Footer */
+    footer {
+      background: #222;
+      color: #ddd;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 0.95rem;
+      user-select: none;
+    }
+    footer p {
+      margin-bottom: 12px;
+    }
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    .social-icons a {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      filter: grayscale(60%);
+      transition: filter 0.3s ease, transform 0.3s ease;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+    .social-icons a:hover {
+      filter: grayscale(0%);
+      transform: scale(1.2) rotate(10deg);
+      box-shadow: 0 4px 10px rgba(255, 99, 71, 0.7);
+    }
+    .social-icons img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .about-hero h1 {
+        font-size: 2.4rem;
+      }
+      .about-hero p {
+        font-size: 1rem;
+      }
+      .team-members {
+        justify-content: center;
+      }
+      .member-card {
+        width: 90vw;
+        max-width: 320px;
+      }
+      .video-section iframe {
+        height: 300px;
+      }
+    }
+    @media (max-width: 500px) {
+      .nav-links {
+        gap: 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="logo">🍽️ Delicious Bites</div>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html" class="active">About</a></li>
+        <li><a href="menucard.html">Menu Card</a></li>
+        <li><a href="order.html">Order Now</a></li>
+        <li><a href="login.html">Login</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="about-hero">
+    <h1>About Delicious Bites</h1>
+    <p>
+      Welcome to our story — where passion meets flavor and every bite tells a
+      tale.
+    </p>
+  </section>
+
+  <section class="about-content">
+    <div class="history">
+      <h2>Our History</h2>
+      <p>
+        Founded in 2010, Delicious Bites began as a small family-run kitchen
+        with a dream to bring authentic flavors to our community. Over the
+        years, we've grown into a beloved neighborhood spot known for quality,
+        freshness, and hospitality.
+      </p>
+    </div>
+
+    <div class="mission">
+      <h2>Our Mission & Vision</h2>
+      <p>
+        Our mission is to provide delicious, wholesome meals made with love and
+        fresh ingredients. We envision a community where every meal shared
+        brings joy and connection.
+      </p>
+    </div>
+
+    <div class="team">
+      <h2>Meet Our Team</h2>
+      <div class="team-members">
+        <div class="member-card" tabindex="0">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJwt786z0qQ8CUYWVi7YAwsCqGSDogBDIWVw&s" alt="Chef Anna" />
+          <h3>Chef Anna</h3>
+          <p>Head Chef & Founder</p>
+        </div>
+        <div class="member-card" tabindex="0">
+          <img src="https://www.touchbistro.com/wp-content/uploads/2019/10/famous-chefs-jamie-oliver.jpg" alt="John Doe" />
+          <h3>John Doe</h3>
+          <p>Operations Manager</p>
+        </div>
+        <div class="member-card" tabindex="0">
+          <img src="https://img-cdn.thepublive.com/filters:format(webp)/elle-india/media/post_attachments/99377e22-54f.jpg" alt="Maria Gomez" />
+          <h3>Maria Gomez</h3>
+          <p>Lead Server</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="video-section">
+      <h2>Take a Tour</h2>
+      <iframe
+        src="https://www.youtube.com/embed/1aE9qj0XHUc"
+        title="Restaurant Video Tour"
+        frameborder="0"
+        allowfullscreen
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Delicious Bites. All rights reserved.</p>
+    <div class="social-icons">
+      <a href="#" aria-label="Facebook">
+        <img src="https://img.icons8.com/color/48/facebook.png" alt="Facebook" />
+      </a>
+      <a href="#" aria-label="Instagram">
+        <img src="https://img.icons8.com/color/48/instagram-new.png" alt="Instagram" />
+      </a>
+      <a href="#" aria-label="Twitter">
+        <img src="https://img.icons8.com/color/48/twitter.png" alt="Twitter" />
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

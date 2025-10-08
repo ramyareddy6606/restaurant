@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Delicious Bites | Login</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+      position: relative;
+      background: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1470&q=80') no-repeat center center/cover;
+      /* dark overlay using ::before */
+    }
+
+    /* Dark overlay for better readability */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(20, 20, 20, 0.6);
+      z-index: 0;
+      pointer-events: none;
+      filter: brightness(0.7) contrast(1.1);
+    }
+
+    /* Container */
+    .login-container {
+      position: relative;
+      background: linear-gradient(145deg, #fff7f2, #ffe5db);
+      width: 380px;
+      border-radius: 30px;
+      box-shadow:
+        0 8px 25px rgba(255, 99, 71, 0.3),
+        inset 0 0 15px rgba(255, 99, 71, 0.2);
+      padding: 45px 40px 60px;
+      z-index: 10;
+      animation: fadeInScale 0.7s ease forwards;
+      overflow: hidden;
+      user-select: none;
+    }
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.85); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Heading */
+    h2 {
+      color: #ff451f;
+      font-weight: 800;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 32px;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 12px rgba(255, 69, 31, 0.9);
+      user-select: none;
+    }
+
+    /* Form and floating label styles */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      position: relative;
+    }
+
+    .form-group {
+      position: relative;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 14px 16px 14px 16px;
+      font-size: 1.05rem;
+      border-radius: 16px;
+      border: 2.8px solid #f2f2f2;
+      background: #fff;
+      color: #444;
+      outline: none;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      box-shadow: 0 0 3px rgba(0,0,0,0.05);
+      user-select: text;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      border-color: #ff451f;
+      box-shadow:
+        0 0 12px rgba(255, 69, 31, 0.7),
+        inset 0 0 8px rgba(255, 69, 31, 0.4);
+    }
+
+    /* Floating labels */
+    label {
+      position: absolute;
+      top: 50%;
+      left: 18px;
+      transform: translateY(-50%);
+      font-weight: 600;
+      color: #b75a46;
+      font-size: 1rem;
+      pointer-events: none;
+      user-select: none;
+      transition:
+        top 0.35s ease,
+        font-size 0.35s ease,
+        color 0.35s ease;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: -10px;
+      font-size: 0.8rem;
+      color: #ff451f;
+      text-shadow: 0 0 4px rgba(255, 69, 31, 0.9);
+      background: #fff7f3;
+      padding: 0 8px;
+      border-radius: 8px;
+      user-select: none;
+    }
+
+    /* Forgot/Register links */
+    .forgot-register {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #b75a46;
+      margin-top: -8px;
+      user-select: none;
+    }
+    .forgot-register a {
+      color: #b75a46;
+      text-decoration: none;
+      transition: color 0.4s ease, text-shadow 0.4s ease;
+      cursor: pointer;
+      position: relative;
+      user-select: text;
+    }
+    .forgot-register a:hover {
+      color: #ff451f;
+      text-shadow: 0 0 10px rgba(255, 69, 31, 0.9);
+      animation: pulse 1.5s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 10px rgba(255, 69, 31, 0.9);
+      }
+      50% {
+        text-shadow: 0 0 25px rgba(255, 69, 31, 1);
+      }
+    }
+
+    /* Login Button */
+    button.login-btn {
+      background: linear-gradient(45deg, #ff451f, #ff7843);
+      border: none;
+      border-radius: 50px;
+      color: white;
+      font-weight: 700;
+      padding: 16px 0;
+      font-size: 1.15rem;
+      cursor: pointer;
+      box-shadow:
+        0 10px 25px rgba(255, 69, 31, 0.6);
+      transition:
+        background 0.3s ease,
+        transform 0.25s ease,
+        box-shadow 0.3s ease;
+      user-select: none;
+      letter-spacing: 0.05em;
+    }
+    button.login-btn:hover {
+      background: linear-gradient(45deg, #ff7843, #ff451f);
+      transform: scale(1.07);
+      box-shadow:
+        0 15px 35px rgba(255, 69, 31, 0.85),
+        0 0 18px rgba(255, 69, 31, 0.9);
+    }
+    button.login-btn:active {
+      transform: scale(0.95);
+      box-shadow:
+        0 6px 18px rgba(255, 69, 31, 0.7);
+    }
+
+    /* OTP Popup */
+    .otp-popup {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 100;
+    }
+    .otp-popup.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .otp-content {
+      background: #fff7f2;
+      border-radius: 28px;
+      padding: 32px 36px 40px;
+      width: 360px;
+      box-shadow:
+        0 15px 40px rgba(255, 69, 31, 0.5),
+        inset 0 0 15px rgba(255, 69, 31, 0.3);
+      text-align: center;
+      position: relative;
+      animation: bounceIn 0.45s cubic-bezier(.28,.84,.42,1) forwards;
+      user-select: none;
+    }
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.7) translateY(-40px);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.1) translateY(10px);
+      }
+      100% {
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .otp-content h3 {
+      color: #ff451f;
+      margin-bottom: 24px;
+      font-weight: 800;
+      font-size: 1.9rem;
+      text-shadow: 0 0 12px rgba(255, 69, 31, 0.9);
+      user-select: none;
+    }
+    .otp-input {
+      width: 100%;
+      font-size: 1.7rem;
+      letter-spacing: 12px;
+      padding: 14px 0;
+      border-radius: 20px;
+      border: 2.8px solid #ddd;
+      text-align: center;
+      outline: none;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+      color: #444;
+      user-select: text;
+    }
+    .otp-input:focus {
+      border-color: #ff451f;
+      box-shadow:
+        0 0 16px rgba(255, 69, 31, 0.75),
+        inset 0 0 12px rgba(255, 69, 31, 0.5);
+    }
+
+    .otp-actions {
+      margin-top: 36px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      user-select: none;
+    }
+    .otp-actions button {
+      flex: 1;
+      background: linear-gradient(45deg, #ff451f, #ff7843);
+      border: none;
+      color: white;
+      font-weight: 700;
+      padding: 14px 0;
+      border-radius: 40px;
+      font-size: 1.05rem;
+      cursor: pointer;
+      box-shadow:
+        0 10px 25px rgba(255, 69, 31, 0.6);
+      transition:
+        background 0.3s ease,
+        transform 0.25s ease,
+        box-shadow 0.3s ease;
+      letter-spacing: 0.04em;
+      user-select: none;
+    }
+    .otp-actions button:hover {
+      background: linear-gradient(45deg, #ff7843, #ff451f);
+      transform: scale(1.07);
+      box-shadow:
+        0 15px 35px rgba(255, 69, 31, 0.85),
+        0 0 18px rgba(255, 69, 31, 0.9);
+    }
+    .otp-actions button:active {
+      transform: scale(0.95);
+      box-shadow:
+        0 6px 18px rgba(255, 69, 31, 0.7);
+    }
+
+    /* Close button */
+    .close-otp {
+      position: absolute;
+      top: 14px;
+      right: 18px;
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #ff451f;
+      cursor: pointer;
+      user-select: none;
+      transition: color 0.3s ease;
+    }
+    .close-otp:hover,
+    .close-otp:focus {
+      color: #ff7843;
+      outline: none;
+      text-shadow: 0 0 10px rgba(255, 69, 31, 0.9);
+    }
+
+    /* Map section */
+    .map-section {
+      display: none; /* hiding it here, since we focus on login page */
+    }
+
+    /* Accessibility */
+    a:focus,
+    button:focus,
+    input:focus {
+      outline: 3px solid #ff7843;
+      outline-offset: 2px;
+    }
+
+    /* Responsive */
+    @media (max-width: 450px) {
+      .login-container {
+        width: 90vw;
+        padding: 40px 30px 50px;
+      }
+      .otp-content {
+        width: 90vw;
+        padding: 28px 26px 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="login-container" aria-label="Login Form">
+    <h2>Login to Your Account</h2>
+    <form id="loginForm" autocomplete="off" novalidate>
+      <div class="form-group">
+        <input id="email" name="email" type="email" placeholder=" " required aria-required="true" autocomplete="email" />
+        <label for="email">Email Address</label>
+      </div>
+      <div class="form-group">
+        <input id="password" name="password" type="password" placeholder=" " required aria-required="true" autocomplete="current-password" />
+        <label for="password">Password</label>
+      </div>
+
+      <div class="forgot-register">
+        <a href="#" tabindex="0">Forgot Password?</a>
+        <a href="#" tabindex="0">Register</a>
+      </div>
+
+      <button type="submit" class="login-btn" aria-label="Login to your account">Login</button>
+    </form>
+  </section>
+
+  <!-- OTP Popup -->
+  <div class="otp-popup" id="otpPopup" role="dialog" aria-modal="true" aria-labelledby="otpTitle" aria-describedby="otpError">
+    <div class="otp-content">
+      <span class="close-otp" id="closeOtp" aria-label="Close OTP popup" role="button" tabindex="0">&times;</span>
+      <h3 id="otpTitle">Enter OTP</h3>
+      <input type="text" id="otpInput" class="otp-input" maxlength="6" placeholder="••••••" aria-describedby="otpError" autocomplete="one-time-code" />
+      <div id="otpError" class="otp-error" style="color:#ff451f; margin-top: 8px; display:none; font-weight:700; user-select:none;">
+        Invalid OTP, please try again.
+      </div>
+      <div class="otp-actions">
+        <button id="submitOtp" type="button">Submit</button>
+        <button id="resendOtp" type="button">Resend OTP</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const otpPopup = document.getElementById('otpPopup');
+    const closeOtpBtn = document.getElementById('closeOtp');
+    const otpInput = document.getElementById('otpInput');
+    const otpError = document.getElementById('otpError');
+
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      // Basic validation before OTP popup
+      const emailVal = loginForm.email.value.trim();
+      const passVal = loginForm.password.value.trim();
+      if (!emailVal || !passVal) {
+        alert('Please fill in all fields');
+        return;
+      }
+      otpPopup.classList.add('active');
+      otpInput.focus();
+    });
+
+    closeOtpBtn.addEventListener('click', () => {
+      otpPopup.classList.remove('active');
+      otpInput.value = '';
+      otpError.style.display = 'none';
+    });
+
+    closeOtpBtn.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        closeOtpBtn.click();
+      }
+    });
+
+    document.getElementById('submitOtp').addEventListener('click', () => {
+      if (otpInput.value.trim() === '123456') {
+        alert('OTP verified! Logging in...');
+        otpPopup.classList.remove('active');
+        otpInput.value = '';
+        otpError.style.display = 'none';
+        // TODO: Add actual login logic here
+      } else {
+        otpError.style.display = 'block';
+      }
+    });
+
+    document.getElementById('resendOtp').addEventListener('click', () => {
+      alert('OTP resent! Please check your email or phone.');
+      otpInput.value = '';
+      otpError.style.display = 'none';
+      otpInput.focus();
+    });
+  </script>
+</body>
+</html>
